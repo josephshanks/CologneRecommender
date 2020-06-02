@@ -22,7 +22,7 @@ def frag_url_scrape(url):
     driver.get(url)
     
     #Find xpath of the "show more results" button, click it repeatedly to show all results
-        butt=driver.find_element_by_xpath("/html/body/div[1]/div[2]/div[3]/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div[3]/div/div/div/div/div/button")
+    butt=driver.find_element_by_xpath("/html/body/div[1]/div[2]/div[3]/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div[3]/div/div/div/div/div/button")
     elements = driver.find_elements_by_css_selector("div.ais-InfiniteHits a")
     WebDriverException()
     for i in range(1000):
