@@ -6,13 +6,22 @@ import pprint
 # Requests sends and recieves HTTP requests.
 import requests
 import warnings
+import time
 warnings.filterwarnings('ignore')
+
+def main():
+    df=pd.read_csv('data/men_urls.csv')
+    for i in df['0']:
+        frag_info_scrape(i)
+
 
 def frag_info_scrape(url):
     '''
     INPUT(String) URL of fragrence review page for a specific fragrence
     '''
-    
+    client = MongoClient('localhost', 27017)
+    db = client['cologne']
+    mens_cologne = db['mens_cologne']
     
     r=requests.get(url, headers = {'User-agent': 
     'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/81.0.4044.138 Safari/537.36'})
@@ -25,7 +34,7 @@ def frag_info_scrape(url):
     name=soup.find("div",{"id": "col1"})
     name=name.find_all("span",{'itemprop':'name'})
     name=name[1].text
-    
+        
     #user ratings of the frag by demographic/time of day/season
     ratings = soup.find("div", {"id": "diagramresult"})
     rating=ratings.attrs['title']
@@ -55,34 +64,65 @@ def frag_info_scrape(url):
     mainpicbox=soup.find("div",{"id": "mainpicbox"})
     
     #image of frag
-    image=mainpicbox.find('img')
-    image=image.attrs['src']
+    try:
+        image=mainpicbox.find('img')
+        image=image.attrs['src']
+    except:
+        image=np.nan
+    
+    
     
     #have it, want it, had it, signature fragrence
-    have_had_want=mainpicbox.find_all('p')[2].text
-    have_had_want=have_had_want.split('  ')
-    have_it=int(have_had_want[0][-4:])
-    had_it=int(have_had_want[1][-4:])
-    want_it=int(have_had_want[2][-4:])
-    signature=int(have_had_want[3][-4:])
+    try:
+        have_had_want=mainpicbox.find_all('p')[2].text
+        have_had_want=have_had_want.split('  ')
+    except:
+        pass
+    try:
+        have_it=int(have_had_want[0][-4:])
+    except:
+        have_it=0
+    try:
+        had_it=int(have_had_want[1][-4:])
+    except:
+        had_it=0
+    try:
+        want_it=int(have_had_want[2][-4:])
+    except:
+        want_it=0
+    try:
+        signature=int(have_had_want[3][-4:])
+    except:
+        signature=0
     
     #price of frag
-    price=soup.find("div",{"id": "newsocial"})
-    price=price.find_all('b')
     prices=[]
-    for p in price:
-        prices.append(p.text)
+    try:
+        price=soup.find("div",{"id": "newsocial"})
+        price=price.find_all('b')
+        for p in price:
+            prices.append(p.text)
+    except:
+        pass
     
     #description of frag
-    description=soup.find('div',{'itemprop':'description'}).text
+    try:
+        description=soup.find('div',{'itemprop':'description'}).text
+    except:
+        description=''
     
-    #col2 scrapes column for sillage/longevity 
+    #col2 scrapes column for sillage/longevity
     col=soup.find('div',{'id':'col1'})
     col1=col.find('div',{'class':'effect6'})
     pyramid=col1.find_all('p')
-    #col=col.find_all('span')
-    user_pyramid=col1.find('div',{'id':'userMainNotes'})
-    user_pyramid=user_pyramid.attrs['title']
+
+    
+    try:
+        user_pyramid=col1.find('div',{'id':'userMainNotes'})
+        user_pyramid=user_pyramid.attrs['title']
+    except:
+        user_pyramid=np.nan
+        
     col2=col.find('div',{'class':'longSilBox effect6'})
     col2=col2.find_all('table')
     
@@ -96,18 +136,30 @@ def frag_info_scrape(url):
 
     for i in range(len(pyramid)):
         for j in range(len(pyramid[i].find_all('span',{'class':'rtgNote'}))):
-            if i ==0:
-                top_notes.append(pyramid[i].find_all('span',{'class':'rtgNote'})[j].find('img').attrs['title'])
-                top_notes_id.append(pyramid[i].find_all('span',{'class':'rtgNote'})[j].attrs['title'])
-            elif i ==1:
-                mid_notes.append(pyramid[i].find_all('span',{'class':'rtgNote'})[j].find('img').attrs['title'])
-                mid_notes_id.append(pyramid[i].find_all('span',{'class':'rtgNote'})[j].attrs['title'])
-            else:
-                base_notes.append(pyramid[i].find_all('span',{'class':'rtgNote'})[j].find('img').attrs['title'])
-                base_notes_id.append(pyramid[i].find_all('span',{'class':'rtgNote'})[j].attrs['title'])
+            try:
+                if i ==0:
+                    top_notes.append(pyramid[i].find_all('span',{'class':'rtgNote'})[j].find('img').attrs['title'])
+                    top_notes_id.append(pyramid[i].find_all('span',{'class':'rtgNote'})[j].attrs['title'])
+            except:
+                continue
+            try:
+                if i ==1:
+                    mid_notes.append(pyramid[i].find_all('span',{'class':'rtgNote'})[j].find('img').attrs['title'])
+                    mid_notes_id.append(pyramid[i].find_all('span',{'class':'rtgNote'})[j].attrs['title'])
+            except:
+                continue
+            try:
+                if i==2:
+                    base_notes.append(pyramid[i].find_all('span',{'class':'rtgNote'})[j].find('img').attrs['title'])
+                    base_notes_id.append(pyramid[i].find_all('span',{'class':'rtgNote'})[j].attrs['title'])
+            except:
+                continue
                 
     #user voted strength of notes
-    user_voted_pyramid=user_pyramid.split(';')
+    try:
+        user_voted_pyramid=user_pyramid.split(';')
+    except:
+        user_voted_pyramid=np.nan
     
     #sillage
     sillage=col2[1].text.split()[2:]
@@ -124,25 +176,73 @@ def frag_info_scrape(url):
     longevity_7hr_12hr=longevity[8]
     longevity_above12hr=longevity[12]
     
-    reminds_me=col.find('div',{'class':'votes'})
-    reminds_me.find('div',{'class':'fl'})
-    remind=reminds_me.find_all('img')
-    remind_value=reminds_me.find_all('span')
-    
     #similiar fragrences voted by the public
     voted_similar_frag=[]
-    for i in range(len(remind)):
-        voted_similar_frag.append(remind[i].attrs['title'])
-        voted_similar_frag.append(remind_value[i].text)
+    try:
+        reminds_me=col.find('div',{'class':'votes'})
+        #reminds_me.find('div',{'class':'fl'})
+        remind=reminds_me.find_all('img')
+        remind_value=reminds_me.find_all('span')
+
+        for i in range(len(remind)):
+            voted_similar_frag.append(remind[i].attrs['title'])
+            voted_similar_frag.append(remind_value[i].text)
+    except:
+        pass
     
     #user reviews
+    
     user_reviews={}
     user_review_date=[]
-    for i in range(len(user)):
-        user_name=user[i].find('div',{'class':'avatar'}).find('span').text.split('\n')[0]
-        user_review=user[i].find('div',{'class':'revND'}).text.replace('\n','')
-        user_reviews[user_name]=user_review
-        user_review_date.append(user[i].find('div',{'class':'revND'}).text.split('\n')[1][1:])
+    try:
+        user=col.find_all('div',{'class':'pwq'})
+        for i in range(len(user)):
+            user_name=user[i].find('div',{'class':'avatar'}).find('span').text.split('\n')[0]
+                if '.' in user_name:
+                    user_name=user_name.replace('.',' ')
+            user_review=user[i].find('div',{'class':'revND'}).text.replace('\n','')
+            user_reviews[user_name]=user_review
+            user_review_date.append(user[i].find('div',{'class':'revND'}).text.split('\n')[1][1:])
+    except:
+        pass
+    
+
+        
+    mens_cologne.insert_one({
+    'name': name, 
+    'frag rating': frag_rating, 
+    'main accords': accord_dic,
+    'image':image,
+    'have it':have_it,
+    'had it':had_it,
+    'want it':want_it,
+    'signature':signature,
+    'price':prices,
+    'description':description,
+    'top notes':top_notes,
+    'top notes id':top_notes_id,
+    'mid notes':mid_notes,
+    'mid notes id':mid_notes_id,
+    'base notes':base_notes,
+    'base notes id':base_notes_id,
+    'user voted notes': user_voted_pyramid,
+    'close to skin':close_to_skin,
+    'radiates about arm length':radiates_arm_length,
+    'radiates 6ft':radiates_6ft,
+    'fills room':fills_room,
+    '30min to 1hr':longevity_30m_1hr,
+    '1hr to 2hr':longevity_1hr_2hr,
+    '3hr to 6hr':longevity_3hr_6hr,
+    '7hr to 12hr':longevity_7hr_12hr,
+    'greater than 12hr':longevity_above12hr,
+    'similiar fragrences by user vote':voted_similar_frag,
+    'user reviews':user_reviews,
+    'user review date':user_review_date})
+    
+    time.sleep(5)
+        
+if __name__ == '__main__':
+    main()
 
     
     
