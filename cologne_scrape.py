@@ -77,21 +77,24 @@ def frag_info_scrape(url):
         have_had_want=mainpicbox.find_all('p')[2].text
         have_had_want=have_had_want.split('  ')
     except:
+        have_had_want=mainpicbox.find_all('p')[1].text
+        have_had_want=have_had_want.split('  ')
+    else:
         pass
     try:
-        have_it=int(have_had_want[0][-4:])
+        have_it=int(have_had_want[0].split()[3])
     except:
         have_it=0
     try:
-        had_it=int(have_had_want[1][-4:])
+        had_it=int(have_had_want[1].split()[3])
     except:
         had_it=0
     try:
-        want_it=int(have_had_want[2][-4:])
+        want_it=int(have_had_want[2].split()[3])
     except:
         want_it=0
     try:
-        signature=int(have_had_want[3][-4:])
+        signature=int(have_had_want[3].split()[2])
     except:
         signature=0
     
@@ -239,7 +242,7 @@ def frag_info_scrape(url):
     'user reviews':user_reviews,
     'user review date':user_review_date})
     
-    time.sleep(5)
+    time.sleep(11)
         
 if __name__ == '__main__':
     main()
