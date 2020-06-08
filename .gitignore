@@ -10,3 +10,5 @@ ipython_config.py
 
 # Files
 data/
+/data/*.json
+/data/*.csv
