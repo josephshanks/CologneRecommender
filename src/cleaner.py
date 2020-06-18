@@ -55,7 +55,7 @@ def create_columns_from_dic(df,column):
             elif key == 'Videos':
                 continue
             else:
-                df[key][idx]=value
+                df[key].iloc[idx]=value
                 
     #drop original column            
     df.drop(columns=column,inplace=True)
