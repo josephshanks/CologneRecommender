@@ -45,7 +45,7 @@ def create_columns_from_dic(df,column):
     data=list(x)
     #Assign new column for each unique key
     for d in data:
-            df[data]=0
+            df[d]=0
             
     #Assign value for each new column        
     for idx,i in enumerate(df[column]):
