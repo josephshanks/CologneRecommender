@@ -22,12 +22,11 @@ class ItemRecommender():
 
         INPUT -
             X: NUMPY ARRAY - Rows are items, columns are feature values / or DF
-            index: LIST - List of the item names/titles in order of the numpy arrray
+            index: LIST - List of the item names in order of the numpy arrray
         
         OUTPUT - None
 
 
-        Notes:  You might want to keep titles and X as attributes to refer to them later
 
         Create the a similarity matrix of item to item similarity
         '''
@@ -65,14 +64,12 @@ class ItemRecommender():
         '''
         Takes a list of items and returns a user profile. A vector representing the likes of the user.
         INPUT: 
-            items  -   LIST - list of movie names user likes / has seen
+            items  -   LIST - list of cologne names user likes / has seen
 
         OUTPUT: 
             user_profile - NP ARRAY - array representing the likes of the user 
                     The columns of this will match the columns of the trained on matrix
-    
 
-        Using the list of items liked by the user create a profile which will be a 1 x number of features array.  This should be the addition of the values for all liked item features (you can choose how to normalize if you think it is needed)
         '''
         user_profile = np.zeros(self.item_counts.shape[1])
         for item in items:
@@ -83,10 +80,10 @@ class ItemRecommender():
 
     def get_user_recommendation(self, items, n=5):
         '''
-        Takes a list of movies user liked and returns the top n items for that user
+        Takes a list of colognes user liked and returns the top n items for that user
 
         INPUT 
-            items  -   LIST - list of movie names user likes / has seen
+            items  -   LIST - list of cologne names user likes / has seen
             n -  INT - number of items to return
 
         OUTPUT 
