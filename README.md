@@ -13,12 +13,11 @@ Python - MongoDB - AWS - BeautifulSoup - Selenium - Flask - Bootstrap
 - [Overview](#overview)
 - [Workflow](#workflow)
     - [Data Scraping](#data-scraping)
-    - [Data Cleaning]
-    - [Normalize]
-    - [EDA]
-    - [NLP Sentiment Analysis]
+    - [Data Cleaning](#data-cleaning)
+    - [Normalize](#normalize)
+    - [EDA](#eda)
+    - [NLP Sentiment Analysis](#nlp-sentiment-analysis)
 - [Models](#models)
-- [Results](#results)
 - [Validating it Works](#validating-it-works)
 - [Tools and Packages Used](#tools-and-packages-used)
 - [Future Work](#future-work)
@@ -83,7 +82,8 @@ def frag_url_scrape(url):
     driver.get(url)
     
     #Find xpath of the "show more results" button, click it repeatedly to show all results
-    butt=driver.find_element_by_xpath("/html/body/div[1]/div[2]/div[3]/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div[3]/div/div/div/div/div/button")
+    butt=driver.find_element_by_xpath(
+    "/html/body/div[1]/div[2]/div[3]/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div[3]/div/div/div/div/div/button")
     elements = driver.find_elements_by_css_selector("div.ais-InfiniteHits a")
     WebDriverException()
     for i in range(1000):
@@ -375,14 +375,15 @@ Many features in my dataset consisted of user voted data. Because some fragrence
 
 ## NLP Sentiment Analysis
 
-There are two major types of recommendation models, one in which uses explicit data and one which uses implicit data. Unfortuntaely I actually had neither. Explicit data uses specific ratings for a product from a user such as "Bob rated Aqua Di Gio a 5/5", and implicit data uses other factors to determine interest in a product such as how many times a product was viewed or mentioned. Due to the fact I only had user reviews on the colognes (granted years worth of reviews) I decided to do a Natural Language Processing Sentiment Analysis. A sentiment analysis allowed for me to test for a threshold using a lexicon to 
-produce a polarity score between 1-5 for each review. 
+There are two major types of recommendation models, one in which uses explicit data and one which uses implicit data. Unfortuntaely I actually had neither. Explicit data uses specific ratings for a product from a user such as "Bob rated Aqua Di Gio a 5/5", and implicit data uses other factors to determine interest in a product such as how many times a product was viewed or mentioned. Due to the fact I only had user reviews on the colognes (granted years worth of reviews) I decided to do a Natural Language Processing Sentiment Analysis. A sentiment analysis allowed for me to test for a threshold using a lexicon to produce a polarity score between 1-5 for each review. 
 
 *picture of reviews
 
 ** how did i test for accuracy?
 
 After more data wrangling, 
+
+## Models
 
 <p>Model</p>
 <br>
@@ -395,25 +396,25 @@ After more data wrangling,
 
 
 
-
-<b>Graph </b>
-    TESTTESTTESTETSTES     |         TESTTEST          |
+    Models                 |        RMSE               |
 :-------------------------:|:-------------------------:|
-![test1](gd.png)| ![test2](gr.png) |
-<br>
-<p><i>New  </i></p>
-<br>
+    ALS                    |        0.8716             |
+    NMF                    |        0.9970             |
+    SVD                    |        0.8807             |
+    KNN                    |        0.9168             |
+    KNN Baseline           |        0.8974             |
+    
+    
 
 
 
-
-
-<i>Note:</i>
 
 
 <img alt="gif" src='flask.gif'>
 
 
+
+## Validating it Works
 
 <details>
     <summary>Test</summary>
@@ -421,6 +422,56 @@ After more data wrangling,
     <br>
     <i>The model</i>
 </details>
+
+## Tools and Packages Used
+
+<b>Languages:</b>
+
+* Python
+* Git
+
+<b>Web App:</b>
+
+* Flask
+* Bootstrap
+* HTML
+* CSS
+* JavaScript
+
+<b>Web Scraping:</b>
+
+* BeautifulSoup
+* Selenium
+* Requests
+* Json
+
+<b>Data Storage:</b>
+
+* MongoDB
+* Docker Container
+* Pymongo
+
+<b>Feature Engineering:</b>
+
+* NLP Sentiment Analysis
+* Scikit-Learn for Normalizing
+
+<b>Modeling:</b>
+
+* Scikit-Learn
+* Scipy
+* Surprise
+* Numpy
+* Pandas
+* ALS, NMF, SVD, kNN
+
+<b>Data Visualization:</b>
+
+* MatplotLib
+* Seaborn
+* Plotly
+
+
 
 ## Future Work
 
