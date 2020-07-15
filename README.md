@@ -398,18 +398,32 @@ After more data wrangling,
 
     Models                 |        RMSE               |
 :------------------------:|:-------------------------:
- ALS | 0.8716 
- NMF | 0.9970 
- SVD | 0.8807 
- KNN | 0.9168 
- KNN Baseline | 0.8974  
+    ALS | 0.8716 
+    NMF | 0.9970 
+    SVD | 0.8807 
+    KNN | 0.9168 
+    KNN Baseline | 0.8974  
     
-    
-<br>
-<br>
-<br>
 
 
+
+
+<br>
+
+| Tables        | Are           | Cool  |
+| ------------- |:-------------:| -----:|
+| col 3 is      | right-aligned | $1600 |
+| col 2 is      | centered      |   $12 |
+| zebra stripes | are neat      |    $1 |
+
+There must be at least 3 dashes separating each header cell.
+The outer pipes (|) are optional, and you don't need to make the 
+raw Markdown line up prettily. You can also use inline Markdown.
+
+Markdown | Less | Pretty
+--- | --- | ---
+*Still* | `renders` | **nicely**
+1 | 2 | 3
 
 
 <img alt="gif" src='flask.gif'>
