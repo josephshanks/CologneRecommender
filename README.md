@@ -1,12 +1,10 @@
-# CologneRecommender
-## Flask App to recommend and personalize fragrences given true user preferences. 
+# Blind Buy - CologneRecommender
+### Flask App to recommend and personalize fragrences given true user preferences. 
 Python - MongoDB - AWS - BeautifulSoup - Selenium - Flask - Bootstrap
 
-7/13/2020 Flask app in progress....
+7/15/2020 Flask app in progress....
 
-<img alt="B" src='e.png' height="600px" width="1000px" align='center'>
-
-
+<img alt="Empty" src='e.png' height="600px" width="1000px" align='center'>
 
 ## Table of Contents
 
@@ -36,21 +34,9 @@ Sure you may prefer one fragrence over the next but that doesn't make for a qual
 
 ## Workflow
 
-
-
-
 Blind Buy gives the users multiple ways to help the recommendation system best cater their fragrence to their liking. It starts with the user creating an account and answering a short quiz. The quiz helps us recommend perfumes to people with no purchase history. Here Blind Buy uses a <b>Content-Based Recommender</b> using a weighted cosine similarity. 
 
 Blind Buy gives the user the opportunity to rate other perfumes they have tried in the past. Here Blind Buy uses a <b>Collaborative Filtering Recommender</b> where users can ask for a specific type of fragrence through the fragrence test and also be recommended fragrences that other users similiar to them have also loved.
-
-
-
-
-
-
-<img alt="" src='g.png' height='400px' width='500px' align='right'>
-
-
 
 ## Data Scraping
 
@@ -82,8 +68,7 @@ def frag_url_scrape(url):
     driver.get(url)
     
     #Find xpath of the "show more results" button, click it repeatedly to show all results
-    butt=driver.find_element_by_xpath(
-    "/html/body/div[1]/div[2]/div[3]/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div[3]/div/div/div/div/div/button")
+    butt=driver.find_element_by_xpath("/html/body/div[1]/div[2]/div[3]/div[1]/div[1]/div/div/div/div[2]/div[1]/div/div[3]/div/div/div/div/div/button")
     elements = driver.find_elements_by_css_selector("div.ais-InfiniteHits a")
     WebDriverException()
     for i in range(1000):
@@ -373,36 +358,25 @@ Many features in my dataset consisted of user voted data. Because some fragrence
 
 ## EDA
 
+<img alt="SillageImportance" src='images/sillage.png' height="600px" width="1000px" align='center'>
+
 ## NLP Sentiment Analysis
 
 There are two major types of recommendation models, one in which uses explicit data and one which uses implicit data. Unfortuntaely I actually had neither. Explicit data uses specific ratings for a product from a user such as "Bob rated Aqua Di Gio a 5/5", and implicit data uses other factors to determine interest in a product such as how many times a product was viewed or mentioned. Due to the fact I only had user reviews on the colognes (granted years worth of reviews) I decided to do a Natural Language Processing Sentiment Analysis. A sentiment analysis allowed for me to test for a threshold using a lexicon to produce a polarity score between 1-5 for each review. 
 
-*picture of reviews
+<img alt="NLPreviewratings" src='e1.png' height="600px" width="1000px" align='center'>
 
 ** how did i test for accuracy?
 
-After more data wrangling, 
+After more data wrangling...
 
 ## Models
 
-<p>Model</p>
-<br>
-<p>RMSE</p>
-
-<br>
-<p><i> <b>RMSE: </b> p </i></p>
-
 <br>
 <br>
 <br>
 
-
-    
-
-
-
-
-<br>
+<b> Collaborative Filtering Model for Active Users </b>
 
 | Models        | RMSE           |
 | ------------- |:-------------:|
@@ -412,14 +386,22 @@ After more data wrangling,
 | KNN | 0.9168      |
 | KNN Baseline | 0.8974       | 
 
+<br>
+<br>
+<br>
 
+<b> Content-Based Recommender for new users (Cold Start) </b>
 
+As mentioned previously, to combat the cold start issue I normalized key perfume characteristics, notes, and accords and built a content based model using cosine similarity and a weighted vector. This allows for improved recommendations based on the users cologne test feature importance. 
 
-
+<details>
+    <summary>See recommendations for two of my personal favorite fragrences for men</summary>
+    <img alt="recommendation" src='images/rec.png'>
+    <br>
+    <i>These recommendations above are given with a high "Seasonal" Importance</i>
+</details>
 
 <img alt="gif" src='flask.gif'>
-
-
 
 ## Validating it Works
 
@@ -484,6 +466,6 @@ After more data wrangling,
 
 - [ ] Flask
 - [ ] Scrape Female and Unisex fragrences
-- [x] 1
-- [ ] 2
+- [x] Workflow diagram
+- [ ] LDA for perfume analysis
 - [ ] 3
