@@ -358,7 +358,9 @@ Many features in my dataset consisted of user voted data. Because some fragrence
 
 ## EDA
 
-<img alt="SillageImportance" src='images/sillage.png' height="600px" width="1000px" align='center'>
+As shown below, a strong Sillage has a high correlation with good cologne ratings. I would like to point out the slight outlier with the 3-4 star rating colognes and a small sillage. I would guess this is due to the fact some colognes are great smelling and deserve a high star rating but fail to perform well justifying the mediocre rating. This would be something to further look into.
+
+<img alt="SillageImportance" src='images/sillage.png' height="500px" width="800px" align='center'>
 
 ## NLP Sentiment Analysis
 
@@ -366,14 +368,12 @@ There are two major types of recommendation models, one in which uses explicit d
 
 <img alt="NLPreviewratings" src='e1.png' height="600px" width="1000px" align='center'>
 
-** how did i test for accuracy?
+** how did i test for accuracy? - We have the avg ratings for each cologne, does the average sentiment analysis for a specific cologne eqaul the avg rating?
 
-After more data wrangling...
+After more data wrangling I was ready to use the data for my models...
 
 ## Models
 
-<br>
-<br>
 <br>
 
 <b> Collaborative Filtering Model for Active Users </b>
@@ -397,6 +397,8 @@ As mentioned previously, to combat the cold start issue I normalized key perfume
 <details>
     <summary>See recommendations for two of my personal favorite fragrences for men</summary>
     <img alt="recommendation" src='images/rec.png'>
+    <br>
+    <br>
     <br>
     <i>These recommendations above are given with a high "Seasonal" Importance</i>
 </details>
@@ -468,4 +470,3 @@ As mentioned previously, to combat the cold start issue I normalized key perfume
 - [ ] Scrape Female and Unisex fragrences
 - [x] Workflow diagram
 - [ ] LDA for perfume analysis
-- [ ] 3
