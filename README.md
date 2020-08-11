@@ -423,7 +423,7 @@ As mentioned previously, to combat the cold start issue I normalized key perfume
 
 <b>Web App:</b>
 
-* Flask
+* Django
 * Bootstrap
 * HTML
 * CSS
@@ -466,7 +466,7 @@ As mentioned previously, to combat the cold start issue I normalized key perfume
 
 ## Future Work
 
-- [ ] Flask
+- [ ] Django
 - [ ] Scrape Female and Unisex fragrences
 - [x] Workflow diagram
 - [ ] LDA for perfume analysis
