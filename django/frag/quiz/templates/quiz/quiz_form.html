@@ -1,0 +1,22 @@
+{% extends "review/review_base.html" %}
+{% load bootstrap3 %}
+
+{% block review_content %}
+<h4>Review a fragrence!</h4>
+
+<form action="{% url 'quiz:create' %}" method="post" id='quizForm'>
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <input type="submit" class='btn btn-primary btn-large' value="Quiz">
+</form>
+
+{% endblock %}
+
+{% block quiz_content %}
+<div class="col-md-8">
+    {% for quiz in quiz_list %}
+        {% include "quiz/_quiz.html" %}
+    {% endfor %}
+</div>
+
+{% endblock %}

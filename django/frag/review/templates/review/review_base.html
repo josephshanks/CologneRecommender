@@ -1,0 +1,13 @@
+{ % extends "base.html" %}
+{% block content %}
+<div class="review-page">
+    <div class="container">
+        <div class="row">
+            {% block prereview %}{% endblock %}
+            {% block review_content %}{% endblock %}
+            {% block postreview %}{% endblock %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}

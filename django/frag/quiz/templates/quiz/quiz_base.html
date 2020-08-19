@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<div class="quiz-page">
+    <div class="container">
+        <div class="row">
+            {% block prequiz %}{% endblock %}
+            {% block quiz_content %}{% endblock %}
+            {% block postquiz %}{% endblock %}
+        </div>
+
+    </div>
+</div>
+{% endblock %}

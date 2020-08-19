@@ -1,0 +1,24 @@
+{% extends "review/review_base.html" %}
+{% block prereview %}
+
+<h1>{{review.name}}</h1>
+<h2>Rating: {{review.average}}</h2>
+
+<div class="content">
+
+    <!-- {% if user in review.members %} part 7 @ 7-->
+</div>
+
+{% endblock %}
+
+{% block review_content %}
+<div class="col-md-8">
+    {% if review.rating.count ==0 %}
+    <h2>No fragrences reviewed yet.</h2>
+    {% else %}
+        {% for review in review.rating.all %}
+            {% include "quiz/_quiz.html"}
+        {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,42 @@
+{% extends "review/review_base.html" %}
+
+{% block prereview %}
+<div class="col-md-4">
+    <div class="content">
+        {% if user.is_authenticated %}
+        <h2>Welcome Back!
+            <a href="{% url 'quiz:for_user' username=user.username %}">
+                @{{user.username}}
+            </a>
+        </h2>
+        
+        {% endif %}
+
+        <h2>Reviews</h2>
+        <p>Previously reviewed fragrences:</p>
+    </div>
+    {% if user.is_authenticated %}
+    <a href="{% url 'review:create' %}" class='btn btn-md btn-fill btn-warning'>
+        <span class='glyphicon glyphicon-plus-sign'>Click to review another fragrence</span>
+    </a>
+    {% endif %}
+</div>
+{% endblock %}
+
+{% block review_content %}
+<div class="col-md-8">
+    <div class="list-review">
+        {% for review in object_list %}
+        <a class='list-review-item' href="{% url 'review:single' slug=review.slug %}">
+            <h3 class='title list-review-item-heading'>{{review.name}}</h3>
+            <div class="list-review-item-text container-fluid">
+                {{review.rating|safe}} <!--rating_html might need swap-->
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+
+
+{% endblock %}

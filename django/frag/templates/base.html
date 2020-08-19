@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blind Buy</title>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.js" integrity="sha256-QWo7LDvxbWT2tbbQ97B53yJnYU3WhH/C8ycbRAkjPDc=" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+    
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+
+    <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'frag/css/master.css'%}">
+</head>
+<body>
+
+    <nav class='navbar mynav' role='navigation' id='navbar'>
+        <div class="container">
+            <a class='navbar-brand mynav' href="{% url 'home' %}">Blind Buy</a>
+
+            <ul class='nav navbar-nav navbar-right'>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'quiz:create' %}">Take Quiz</a></li>
+                    <li><a href="{% url 'quiz:all' %}">Rated Fragrences</a></li> <!--was review for this and line 29-->
+                    <!-- <li><a href="{% url 'quiz:create' %}">Rate</a></li> -->
+                    <li><a href="#">Shopping Cart</a></li>
+                    <li><a href="{% url 'accounts:logout' %}">Log Out</a></li>
+                {% else %}
+                    <li><a href="{% url 'quiz:create' %}">Take Quiz</a></li>
+                    <li><a href="#">Shopping Cart</a></li>
+                    <li><a href="{% url 'accounts:login' %}">Log In</a></li>
+                    <li><a href="{% url 'accounts:signup' %}">Sign Up</a></li>
+                {% endif %}
+            </ul>
+
+        </div>
+    </nav>
+    <div class="container mycontent">
+        {% block content %}
+
+        {% endblock %}
+    </div>
+
+</body>
+    <canvas id="canvas"></canvas>
+    <span id="note">Click to add fireflies</span>
+    <script type="text/javascript" src="{% static 'frag/js/master.js' %}">
+    </script>
+</html>

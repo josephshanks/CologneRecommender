@@ -1,0 +1,13 @@
+{% extends "review/review_base.html" %}
+{% load bootstrap3 %}
+
+{% block review_content %}
+<h4>Here are your reviews</h4>
+
+<form action="{% url 'review:create' %}" method="post" id='reviewForm'>
+    {% csrf_token %}
+    {% bootstrap_form form %}
+    <input type="submit" class='btn btn-primary btn-large' value="Create">
+</form>
+
+{% endbloxk %}
