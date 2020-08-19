@@ -1,8 +1,8 @@
 # Blind Buy - CologneRecommender
-### Flask App to recommend and personalize fragrences given true user preferences. 
-Python - MongoDB - AWS - BeautifulSoup - Selenium - Flask - Bootstrap
+### Django App to recommend and personalize fragrences given true user preferences. 
+Python - MongoDB - AWS - BeautifulSoup - Selenium - Django - Bootstrap - CSS - JS - HTML
 
-7/15/2020 Flask app in progress....
+
 
 <img alt="Empty" src='e.png' height="600px" width="1000px" align='center'>
 
@@ -466,7 +466,7 @@ As mentioned previously, to combat the cold start issue I normalized key perfume
 
 ## Future Work
 
-- [ ] Django
+- [x] Django
 - [ ] Scrape Female and Unisex fragrences
 - [x] Workflow diagram
 - [ ] LDA for perfume analysis
