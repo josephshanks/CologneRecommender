@@ -4,7 +4,7 @@ Python - MongoDB - AWS - BeautifulSoup - Selenium - Django - Bootstrap - CSS - J
 
 
 
-<img alt="Header" src='header.png' height="600px" width="1000px" align='center'>
+<img alt="Header" src='images/header.png' height="600px" width="1000px" align='center'>
 
 ## Table of Contents
 
